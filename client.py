@@ -10,7 +10,7 @@ class Client:
 	def __init__(self):
 
 		self.FORMAT = 'utf-8'
-		self.BYTE_LEN = 2048
+		self.BYTE_LEN = 10
 		self.username = ""
 		self.client_socket = socket(AF_INET, SOCK_STREAM)
 		self.client_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)

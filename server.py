@@ -8,7 +8,7 @@ class Server:
 
 	def __init__(self):
 
-		self.BYTE_LEN = 2048
+		self.BYTE_LEN = 10
 		self.FORMAT = 'utf-8'
 		self.client_conn_username = []
 		self.messages_list = []
@@ -51,10 +51,9 @@ class Server:
 				delete_list.append(message_data)
 
 			for i in delete_list:
-				try:
-					self.messages_list.remove( i )
-				except Exception as e:
-					print('Some Issue While deleting Element from list: ', e)
+				for j in range(len(self.messages_list)):
+					if i == self.messages_list[j]:
+						self.messages_list.pop(j)
 	
 	def message_receiver( self, conn ):
 
