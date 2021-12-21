@@ -35,7 +35,7 @@ class Client:
 		
 		actual_len = len(str(message_byte_len).encode(self.FORMAT))
 		byte_to_be_added = self.BYTE_LEN - actual_len
-		to_send_byte_len = b""*byte_to_be_added + str(message_byte_len).encode(self.FORMAT)
+		to_send_byte_len = b" "*byte_to_be_added + str(message_byte_len).encode(self.FORMAT)
 
 		return to_send_byte_len
 

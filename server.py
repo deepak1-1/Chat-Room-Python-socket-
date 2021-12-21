@@ -28,7 +28,7 @@ class Server:
 		
 		actual_len = len(str(message_byte_len).encode(self.FORMAT))
 		byte_to_be_added = self.BYTE_LEN - actual_len
-		to_send_byte_len = b""*byte_to_be_added + str(message_byte_len).encode(self.FORMAT)
+		to_send_byte_len = b" "*byte_to_be_added + str(message_byte_len).encode(self.FORMAT)
 
 		return to_send_byte_len
 
@@ -36,24 +36,17 @@ class Server:
 	def message_sender( self ):
 		
 		while True:
-			delete_list = []
-			for message_data in self.messages_list:
+			while self.messages_list:
+				message_data = self.messages_list.pop()
 				for user_data in self.client_conn_username:
 					if message_data[0] != user_data[1]:
 
-						pretty_message = f"[{message_data[2]}]:> {message_data[1].decode(self.FORMAT)}"
+						pretty_message = f"\n[{message_data[2]}]:> {message_data[1].decode(self.FORMAT)}"
 						pretty_message_byte_len = self.calculate_byte_len( pretty_message )
 						add_byte_to_message_len = self.add_bytes( pretty_message_byte_len )
 
 						user_data[1].send( add_byte_to_message_len )  
-						user_data[1].send( pretty_message.encode(self.FORMAT) )  
-
-				delete_list.append(message_data)
-
-			for i in delete_list:
-				for j in range(len(self.messages_list)):
-					if i == self.messages_list[j]:
-						self.messages_list.pop(j)
+						user_data[1].send( pretty_message.encode(self.FORMAT) )
 	
 	def message_receiver( self, conn ):
 
